@@ -31,4 +31,9 @@ public class LogService {
 
         return logRepository.save(log);
     }
+
+    public void deleteAllLogs() {
+
+        logRepository.deleteAll();
+    }
 }

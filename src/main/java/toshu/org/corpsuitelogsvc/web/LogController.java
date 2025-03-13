@@ -11,6 +11,7 @@ import toshu.org.corpsuitelogsvc.web.dto.LogRequest;
 import toshu.org.corpsuitelogsvc.web.dto.LogResponse;
 import toshu.org.corpsuitelogsvc.web.mapper.DtoMapper;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class LogController {
     @GetMapping
     public ResponseEntity<List<LogResponse>> getLogs() {
 
-        List<LogResponse> allLogs = logService.getAllLogs().stream().map(DtoMapper::fromLog).toList();
+        List<LogResponse> allLogs = logService.getAllLogs().stream().sorted(Comparator.comparing(Log::getTimestamp).reversed()).map(DtoMapper::fromLog).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(allLogs);
     }
@@ -39,6 +40,14 @@ public class LogController {
         LogResponse logResponse = DtoMapper.fromLog(log);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(logResponse);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAllLogs() {
+
+        logService.deleteAllLogs();
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
 }
