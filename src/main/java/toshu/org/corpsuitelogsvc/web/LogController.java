@@ -26,7 +26,7 @@ public class LogController {
     @GetMapping
     public ResponseEntity<List<LogResponse>> getLogs() {
 
-        List<LogResponse> allLogs = logService.getAllLogs().stream().sorted(Comparator.comparing(Log::getTimestamp).reversed()).map(DtoMapper::fromLog).toList();
+        List<LogResponse> allLogs = logService.getLogResponseSortedReversedMappedToResponse();
 
         return ResponseEntity.status(HttpStatus.OK).body(allLogs);
     }

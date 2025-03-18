@@ -4,9 +4,11 @@ import org.springframework.stereotype.Service;
 import toshu.org.corpsuitelogsvc.model.Log;
 import toshu.org.corpsuitelogsvc.repository.LogRepository;
 import toshu.org.corpsuitelogsvc.web.dto.LogRequest;
+import toshu.org.corpsuitelogsvc.web.dto.LogResponse;
 import toshu.org.corpsuitelogsvc.web.mapper.DtoMapper;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -35,5 +37,9 @@ public class LogService {
     public void deleteAllLogs() {
 
         logRepository.deleteAll();
+    }
+
+    public List<LogResponse> getLogResponseSortedReversedMappedToResponse() {
+        return getAllLogs().stream().sorted(Comparator.comparing(Log::getTimestamp).reversed()).map(DtoMapper::fromLog).toList();
     }
 }
