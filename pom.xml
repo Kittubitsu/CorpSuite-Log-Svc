@@ -10,7 +10,7 @@
     </parent>
     <groupId>toshu.org</groupId>
     <artifactId>CorpSuite-Log-Svc</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>CorpSuite-Log-Svc</name>
     <description>CorpSuite-Log-Svc</description>
     <url/>
@@ -101,7 +101,6 @@
                         <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.36</version>
                         </exclude>
                     </excludes>
                 </configuration>
