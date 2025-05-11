@@ -28,7 +28,7 @@ jobs:
         distribution: 'corretto'
         cache: maven
     - name: Build with Maven
-      run: mvn clean install -e -X
+      run: mvn clean install
       
     - name: Login to Docker
       uses: docker/login-action@v2
@@ -44,3 +44,12 @@ jobs:
         file: Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/corpsuite-log-svc:latest
+
+    - name: Show Surefire Report (if exists)
+      if: failure()
+      run: |
+        if [ -d target/surefire-reports ]; then
+          cat target/surefire-reports/*.txt || true
+        else
+          echo "Surefire reports not found."
+        fi
